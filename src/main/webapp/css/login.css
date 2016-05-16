@@ -1,0 +1,78 @@
+@CHARSET "UTF-8";
+#login_div{
+	width:800px;
+	height:90%;
+	margin:4px auto;
+	border:1px solid orange;
+}
+#login_div li{
+	text-align:center;
+	margin:5px auto;
+	font-weight:blod;
+	list-style-type:none;
+}
+#title_li{
+	font-size:23px;
+}
+#login_div table{
+	margin-top:50px;
+    text-align: right;
+    width: 550px;
+    line-height: 32px;
+}
+.right{
+    text-align: left;
+}
+.right input{
+    height: 28px;
+    text-indent: 5px;
+    width:280px;
+    margin:5px 0;
+    border: 1px solid #FD9511;
+}
+.right img{
+	vertical-align:middle;
+	width:90px;
+	height:28px;
+}
+.checkbox{
+    font-size: 12px;
+    text-align: left;
+}
+.checkbox label{
+    vertical-align:middle;
+}
+.checkbox input{
+    vertical-align:middle;/*复选框的框居中*/
+    margin-left: 0px;
+}
+#checkCode{
+	width:80px;
+	border: 1px solid #FD9511;
+}
+#submit{
+	font-weight: bold;
+    font-size: 18px;
+    color:#ffffff;
+    background-color:#FD9511;
+    border-radius:10px;
+    font-weight: bold;
+    width: 250px;
+    cursor: pointer;
+}
+#refresh{
+	font-size:12px;
+	text-decoration:none;
+	color:#999999;
+}
+.message_div{
+	width:180px;
+	height:28px;
+	font-size:12px;
+	line-height:28px;
+	text-align:left;
+	color:red;
+}
+#kaptcha{
+	cursor:pointer;
+}

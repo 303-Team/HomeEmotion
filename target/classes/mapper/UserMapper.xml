@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.springmvc.dao.UserDAO">
+         <sql id="allmenbers">
+         id,
+         username,
+         password,
+         email,
+         address,
+         state
+         </sql>
+         
+         <sql id="menberEcpId">
+         username,
+         password,
+         email,
+         address,
+         state
+         </sql>
+         <!-- 用户注册-->
+         <insert id="insertUser" parameterType="User" keyProperty="id">
+             insert into user(  
+         id,
+         username,
+         password,
+         email,
+         address,
+         state,
+         authorization
+         ) 
+         values 
+         (  
+         #{id},      
+         #{username},
+         #{password},
+         #{email},
+         #{address},
+         #{state},
+         #{authorization})
+         </insert>
+         <!-- 用户名查询 -->
+         <select id="findUserName" parameterType="String" resultType="User">
+           select * from user where username=#{username}
+         </select>
+         <!-- 用户登录 -->
+         <select id="findUser" parameterType="User" resultType="User">
+           select * from user where username=#{username} and password=#{password}
+         </select>
+         <update id="updateUser" parameterType="User">
+             update user set username=#{username},email = #{email},password = #{password},
+             address = #{address} where username=#{username}
+         </update>
+<!--          <delete id="deleteStudent" parameterType="int">
+             delete from users_name where id = #{id}
+         </delete>
+         <select id="queryStudentById" parameterType="int" resultType="Student">
+           select * from users_name where id=#{id}
+         </select> 
+         
+         <select id="queryAllStudents" resultType="Student">
+             select * from users_name
+         </select> -->
+         
+         
+
+</mapper>

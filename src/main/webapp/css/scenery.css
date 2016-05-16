@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+#middle_div{
+	width:800px;
+	height:600px;
+	margin:0 auto;
+	border:1px solid orange;
+}
+#middle_div img{
+	width:800px;
+	height:600px;
+}

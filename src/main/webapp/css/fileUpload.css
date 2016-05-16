@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+#upload_table{
+	width:400px;
+	height:190px;
+}
+form{
+	height:200px;
+	width:420px;
+	margin:30px auto 0;
+}
+#upload_input{
+	height:25px;
+	width:60px;
+	font-size:15px;
+	font-weight:bold;
+	background-color:orange;
+	color:white;
+}

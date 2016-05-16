@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+#audio_div{
+	width:1000px;
+	margin:0 auto;
+}
+#translate_div{
+	width:545px;
+	height:365px;
+	margin:1px 0;
+	float:left;
+	border:1px solid #B89226;
+}
+#translate_div p{
+	height:30px;
+	line-height:30px;
+	width:545px;
+	text-align:center;
+	border-bottom:1px solid #B89226;
+}
+.clear{
+	clear:both;
+}
