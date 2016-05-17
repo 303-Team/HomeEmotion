@@ -169,14 +169,16 @@ public class MainController {
                 // 由CommonsMultipartFile继承而来,拥有上面的方法.  
                 MultipartFile file = multiRequest.getFile(iter.next());  
                 if (file != null) {  
-                    String fileName = file.getOriginalFilename();  
+                    String fileName = file.getOriginalFilename();
+                    video.setVideoName(fileName);
                     String path = "E:uploadFile/" + fileName;  
   
                     File localFile = new File(path);  
                     file.transferTo(localFile);  
                 }  
   
-            }  
+            }
+            videoService.insertVideo(video);
         }  
         return "production";  
     }  
