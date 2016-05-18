@@ -63,7 +63,5 @@
          <select id="queryAllStudents" resultType="Student">
              select * from users_name
          </select> -->
-         
-         
 
 </mapper>

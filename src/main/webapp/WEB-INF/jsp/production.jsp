@@ -28,26 +28,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <jsp:include page="header.jsp" flush="true" />
-    	<!-- 弹出上传界面 -->
-    	<div id="upload_div">
-    	<div id="close_div"><span onclick="close()">×</span></div>
-    	<form action="${pageContext.request.contextPath}/fileUpload.do" method="post" enctype="multipart/form-data">
-	        <table align="center" cellspacing="5" cellpadding="5" id="upload_table">
-	        <tr>
-	        	<td>上传：</td><td><input type="file" name="fileUpload" /></td><td class="massage_td"></td>
-	        </tr>
-	        <tr>
-	        	<td>主题：</td><td><input type="text" name="pName" /></td><td class="massage_td"></td>
-	        </tr>
-	        <tr>
-	        	<td>类型：</td><td><input type="radio" value="0"/>娱乐<input type="radio" value="1"/>风俗<input type="radio" value="2"/>旅行<input type="radio" value="3"/>随记</td><td class="massage_td"></td>
-	        </tr>
-	        <tr>
-	        	<td></td><td><input type="submit" value="上传" id="upload_input"/></td>
-	        </tr>
-	        </table>
-    	</form>
-    	</div>
     	<!--  <div id="menul"><div id="uploading"><a href="uploading.do">上传作品</a></div>-->
     	<div id="menul"><div id="uploading"><button onclick="openForms()">上传作品</button></div>
     	<div id="deleteAll"><button>批量删除</button></div></div>

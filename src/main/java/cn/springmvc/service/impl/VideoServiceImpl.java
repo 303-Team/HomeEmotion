@@ -1,24 +1,26 @@
 package cn.springmvc.service.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sun.jmx.snmp.Timestamp;
-
-import cn.springmvc.model.Video;
+import cn.springmvc.dao.VideoMapper;
+import cn.springmvc.entity.Video;
 import cn.springmvc.service.VideoService;
 
 @Service
 public class VideoServiceImpl implements VideoService {
+	@Autowired
+	private VideoMapper videoMapper;
 
 	@Override
-	public void insertVideo(Video video) {
-		// TODO Auto-generated method stub
-//		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		//Timestamp nousedate = new Timestamp(date.getTime());
-//		video.setUploadTime(df.format(new Date()));
+	public void insertVideo(Video record) {
+		System.out.println(record.getProName() + "##" + record.getUsername());
+		String videoId = UUID.randomUUID().toString().replaceAll("-", "");
+		record.setVideoId(videoId);
+		int a = videoMapper.insert(record);
+		System.out.println("插入数据：" + a);
 	}
 
 }

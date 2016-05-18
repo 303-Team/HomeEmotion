@@ -1,6 +1,6 @@
 package cn.springmvc.service;
 
-import cn.springmvc.model.Video;
+import cn.springmvc.entity.Video;
 
 public interface VideoService {
 	/**
@@ -9,5 +9,5 @@ public interface VideoService {
 	 * @Description: TODO
 	 * @param video
 	 */
-	public void insertVideo(Video video);
+	public void insertVideo(Video record);
 }

@@ -18,16 +18,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <form action="${pageContext.request.contextPath}/fileUpload.do" method="post" enctype="multipart/form-data">
         <table align="center" cellspacing="5" cellpadding="5" id="upload_table">
         <tr>
-        	<td>上传：</td><td><input type="file" name="fileUpload" /></td><td class="massage_td"></td>
+        	<td>上传：</td><td><input type="file" name="fileUpload" onblur="fileValidate()"/></td><td><span class="massage_td" id="file_td"></span></td>
         </tr>
         <tr>
-        	<td>主题：</td><td><input type="text" name="pName" /></td><td class="massage_td"></td>
+        	<td>主题：</td><td><input type="text" name="pName" id="type" onblur="emptyType()"/></td><td><span class="massage_td" id="type_td"></span></td>
         </tr>
         <tr>
-        	<td>类型：</td><td><input type="radio" value="0"/>娱乐<input type="radio" value="1"/>风俗<input type="radio" value="2"/>旅行<input type="radio" value="3"/>随记</td><td class="massage_td"></td>
+        	<td>类型：</td><td><input type="radio" name="textType" value="0" checked="true"/>娱乐<input type="radio" name="textType" value="1"/>风俗<input type="radio" name="textType" value="2"/>旅行<input type="radio" name="textType" value="3"/>随记</td><td class="massage_td"></td>
         </tr>
         <tr>
-        	<td></td><td><input type="submit" value="上传" id="upload_input"/></td>
+        	<td><input type="hidden" value="0" id="hidden_input" name="hidden"/></td><td><input type="submit" value="上传" id="upload_input" onclick="illgelVideo()"/></td>
         </tr>
         </table>
     </form>  

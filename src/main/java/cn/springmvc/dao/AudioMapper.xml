@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.springmvc.dao.AudioMapper" >
+  <resultMap id="BaseResultMap" type="cn.springmvc.entity.Audio" >
+    <id column="au_id" property="auId" jdbcType="VARCHAR" />
+    <result column="au_name" property="auName" jdbcType="VARCHAR" />
+    <result column="pro_name" property="proName" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="au_type" property="auType" jdbcType="VARCHAR" />
+    <result column="upload_time" property="uploadTime" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="CHAR" />
+    <result column="hot" property="hot" jdbcType="INTEGER" />
+    <result column="translation" property="translation" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    au_id, au_name, pro_name, username, au_type, upload_time, delete_flag, hot, translation
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.springmvc.entity.AudioExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from audio
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+      <if test="limitStart > -1" >
+        limit ${limitStart} , ${limitEnd}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from audio
+    where au_id = #{auId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from audio
+    where au_id = #{auId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.springmvc.entity.AudioExample" >
+    delete from audio
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.springmvc.entity.Audio" >
+    insert into audio (au_id, au_name, pro_name, 
+      username, au_type, upload_time, 
+      delete_flag, hot, translation
+      )
+    values (#{auId,jdbcType=VARCHAR}, #{auName,jdbcType=VARCHAR}, #{proName,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{auType,jdbcType=VARCHAR}, #{uploadTime,jdbcType=VARCHAR}, 
+      #{deleteFlag,jdbcType=CHAR}, #{hot,jdbcType=INTEGER}, #{translation,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.springmvc.entity.Audio" >
+    insert into audio
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="auId != null" >
+        au_id,
+      </if>
+      <if test="auName != null" >
+        au_name,
+      </if>
+      <if test="proName != null" >
+        pro_name,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="auType != null" >
+        au_type,
+      </if>
+      <if test="uploadTime != null" >
+        upload_time,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="hot != null" >
+        hot,
+      </if>
+      <if test="translation != null" >
+        translation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="auId != null" >
+        #{auId,jdbcType=VARCHAR},
+      </if>
+      <if test="auName != null" >
+        #{auName,jdbcType=VARCHAR},
+      </if>
+      <if test="proName != null" >
+        #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="auType != null" >
+        #{auType,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        #{uploadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=CHAR},
+      </if>
+      <if test="hot != null" >
+        #{hot,jdbcType=INTEGER},
+      </if>
+      <if test="translation != null" >
+        #{translation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.springmvc.entity.AudioExample" resultType="java.lang.Integer" >
+    select count(*) from audio
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update audio
+    <set >
+      <if test="record.auId != null" >
+        au_id = #{record.auId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auName != null" >
+        au_name = #{record.auName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proName != null" >
+        pro_name = #{record.proName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auType != null" >
+        au_type = #{record.auType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadTime != null" >
+        upload_time = #{record.uploadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleteFlag != null" >
+        delete_flag = #{record.deleteFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.hot != null" >
+        hot = #{record.hot,jdbcType=INTEGER},
+      </if>
+      <if test="record.translation != null" >
+        translation = #{record.translation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update audio
+    set au_id = #{record.auId,jdbcType=VARCHAR},
+      au_name = #{record.auName,jdbcType=VARCHAR},
+      pro_name = #{record.proName,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      au_type = #{record.auType,jdbcType=VARCHAR},
+      upload_time = #{record.uploadTime,jdbcType=VARCHAR},
+      delete_flag = #{record.deleteFlag,jdbcType=CHAR},
+      hot = #{record.hot,jdbcType=INTEGER},
+      translation = #{record.translation,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.springmvc.entity.Audio" >
+    update audio
+    <set >
+      <if test="auName != null" >
+        au_name = #{auName,jdbcType=VARCHAR},
+      </if>
+      <if test="proName != null" >
+        pro_name = #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="auType != null" >
+        au_type = #{auType,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        upload_time = #{uploadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=CHAR},
+      </if>
+      <if test="hot != null" >
+        hot = #{hot,jdbcType=INTEGER},
+      </if>
+      <if test="translation != null" >
+        translation = #{translation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where au_id = #{auId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.springmvc.entity.Audio" >
+    update audio
+    set au_name = #{auName,jdbcType=VARCHAR},
+      pro_name = #{proName,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      au_type = #{auType,jdbcType=VARCHAR},
+      upload_time = #{uploadTime,jdbcType=VARCHAR},
+      delete_flag = #{deleteFlag,jdbcType=CHAR},
+      hot = #{hot,jdbcType=INTEGER},
+      translation = #{translation,jdbcType=VARCHAR}
+    where au_id = #{auId,jdbcType=VARCHAR}
+  </update>
+</mapper>

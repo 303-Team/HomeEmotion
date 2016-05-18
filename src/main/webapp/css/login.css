@@ -76,3 +76,7 @@
 #kaptcha{
 	cursor:pointer;
 }
+#login_div span{
+	font-size:12px;
+	color:red;
+}

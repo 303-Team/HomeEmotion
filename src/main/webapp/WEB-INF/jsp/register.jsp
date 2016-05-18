@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             		<option value ="xin_jiang">新疆</option>
             		<option value ="tai_wan">台湾</option> 
             	</select>
-            	<input type="hidden" value="0" id="hidden_input" name="hidden"/> 
+            	<input type="hidden" value="1" id="hidden_input" name="hidden"/> 
 				</td>
 			</tr>
 			<tr><td>验证码：</td><td class="right">
@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</td>
 			<td><div id="codeText" class="message_div"></div></td>
 			</tr>
-			<tr><td></td><td class="checkbox"><input type="checkbox"name="detail"value="" onblur="detail2()" /><label>我已经阅读并同意<a href="###">《网络视频管理条例》</a></label></td><td><div id="checkText" class="message_div"></div></td></tr>
+			<tr><td></td><td class="checkbox"><input type="checkbox"name="detail"checked="checked" onblur="detail2()" /><label>我已经阅读并同意<a href="###">《网络视频管理条例》</a></label></td><td><div id="checkText" class="message_div"></div></td></tr>
             <tr><td></td><td class="right"><input type="submit" id="submit"value="注册" onclick="validate()"/></td></tr>
     </table>
     </form>

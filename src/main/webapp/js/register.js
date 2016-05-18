@@ -155,6 +155,7 @@ function validate(){
 	var i;
 	//var content=form1.hidden.value;
 	var validate=new Array(6);
+	var massage;
 	//alert(content);
 	//alert(document.getElementsByClassName("message_div"));
 	validate= document.getElementsByClassName("message_div");
@@ -162,13 +163,40 @@ function validate(){
 	//alert(validate);
 	for(i=0;i<validate.length;i++){
 		//console.log(validate[i].innerText);
-		if((validate[i].innerText)!="√"){
-			form1.hidden.value="1";
-		}else{
-			form1.hidden.value="0";
-		}
+			if((validate[i].innerText)!="√"){
+				form1.hidden.value="1";
+			}else{
+				form1.hidden.value="0";
+			}
 		//console.log(content);
 		//alert(form1.hidden.value);//这里content判断是正确的
+	}
+//	if(validate[0]==""&&validate[1]==""&&validate[2]==""&&validate[3]==""&&validate[4]==""&&validate[5]==""){
+//		alert("请输入注册信息!");
+//	}else{
+//		if(validate[0]=="√"&&validate[1]=="√"&&validate[2]=="√"&&validate[3]=="√"&&validate[4]=="√"&&validate[5]=="√"){
+//			form1.hidden.value="0";
+//		}else{
+//			form1.hidden.value="1";
+//		}
+//	}
+	if(form1.hidden.value=="1"){
+		alert("您填写的信息有误，请检查后再提交！");
+	}
+}
+
+function loginValidate(){
+	var i;
+	var validate=new Array(6);
+//	var massage=document.getElementById("error").innerText;
+	validate= document.getElementsByClassName("message_div");
+	for(i=0;i<validate.length;i++){
+		//console.log(validate[i].innerText);
+			if((validate[i].innerText)!="√"){
+				form1.hidden.value="1";
+			}else{
+				form1.hidden.value="0";
+			}
 	}
 	if(form1.hidden.value=="1"){
 		alert("您填写的信息有误，请检查后再提交！");
