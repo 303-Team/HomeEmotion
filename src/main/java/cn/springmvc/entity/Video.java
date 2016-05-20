@@ -21,8 +21,6 @@ public class Video implements Serializable {
 
 	private Integer hot;
 
-	private String hidden;
-
 	private static final long serialVersionUID = 1L;
 
 	public String getVideoId() {
@@ -95,14 +93,6 @@ public class Video implements Serializable {
 
 	public void setHot(Integer hot) {
 		this.hot = hot;
-	}
-
-	public String getHidden() {
-		return hidden;
-	}
-
-	public void setHidden(String hidden) {
-		this.hidden = hidden;
 	}
 
 }

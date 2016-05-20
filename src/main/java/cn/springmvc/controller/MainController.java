@@ -20,12 +20,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import cn.springmvc.entity.Audio;
+import cn.springmvc.entity.Picture;
 import cn.springmvc.entity.Video;
 import cn.springmvc.model.User;
+import cn.springmvc.service.AudioService;
+import cn.springmvc.service.PictureService;
 import cn.springmvc.service.UserService;
 import cn.springmvc.service.VideoService;
 import cn.springmvc.utils.FileUploadUtil;
 import cn.springmvc.utils.ImageCut;
+import cn.springmvc.utils.UUIDUtil;
 
 @Controller
 @RequestMapping("/")
@@ -34,6 +39,10 @@ public class MainController {
 	private UserService userService;
 	@Autowired
 	private VideoService videoService;
+	@Autowired
+	private AudioService audioService;
+	@Autowired
+	private PictureService pictureService;
 
 	@RequestMapping("index")
 	public String index() {
@@ -165,7 +174,9 @@ public class MainController {
 	}
 
 	@RequestMapping("production")
-	public String production() {
+	public String production(String productionType, HttpSession httpSession) {
+		// System.out.println(productionType);
+		httpSession.setAttribute("flag", productionType);
 		return "production";
 	}
 
@@ -180,62 +191,250 @@ public class MainController {
 	}
 
 	@RequestMapping("uploading")
-	public String uploading() {
-		return "fileUpload";
+	public String uploading(HttpSession httpSession) {
+		// String type = (String) request.getParameter("productionType");
+		String flag = (String) httpSession.getAttribute("flag");
+		String flagUrl = "";
+		if (flag.equals("video")) {
+			flagUrl = "fileUpload";
+		}
+		if (flag.equals("audio")) {
+			flagUrl = "audioUpload";
+		}
+		if (flag.equals("picture")) {
+			flagUrl = "pictureUpload";
+		}
+		return flagUrl;
 	}
 
 	@RequestMapping("fileUpload")
 	public String fileUpload(Video record, HttpServletRequest request,
 			HttpSession httpSession) throws IllegalStateException, IOException {
+		String massage = "";
+		String url = "";
+		UUIDUtil uuidUtil = new UUIDUtil();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		// 设置上下方文
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
 				request.getSession().getServletContext());
-		System.out.println(record.getHidden());
-		if ((record.getHidden()).equals("0")) {
-			// 检查form是否有enctype="multipart/form-data"
-			if (multipartResolver.isMultipart(request)) {
-				MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-
-				Iterator<String> iter = multiRequest.getFileNames();
-				while (iter.hasNext()) {
-
-					// 由CommonsMultipartFile继承而来,拥有上面的方法.
-					MultipartFile file = multiRequest.getFile(iter.next());
-					if (file != null) {
-						String fileName = file.getOriginalFilename();
-						record.setVideoName(fileName);
-						String path = "E:uploadFile/" + fileName;
-
-						File localFile = new File(path);
-						file.transferTo(localFile);
-					}
-
+		// 检查form是否有enctype="multipart/form-data"
+		if (multipartResolver.isMultipart(request)) {
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+			Iterator<String> iter = multiRequest.getFileNames();
+			while (iter.hasNext()) {
+				// 由CommonsMultipartFile继承而来,拥有上面的方法.
+				MultipartFile file = multiRequest.getFile(iter.next());
+				if (file != null) {
+					String fileName = file.getOriginalFilename();
+					record.setVideoName(fileName);
+					// System.out.println(request.getSession().getServletContext()
+					// .getRealPath("/"));
+					String path = request.getSession().getServletContext()
+							.getRealPath("/")
+							+ "video/" + fileName;
+					File localFile = new File(path);
+					file.transferTo(localFile);
 				}
-				String videoName = record.getVideoName();
-				String proName = request.getParameter("pName");
-				String proType = request.getParameter("textType");
-				String username = (String) httpSession.getAttribute("username");
-				SimpleDateFormat df = new SimpleDateFormat(
-						"yyyy-MM-dd HH:mm:ss");
-				System.out.println("username：" + username + "videoName:"
-						+ videoName + "proName:" + proName + "proType:"
-						+ proType);
-				record.setVideoName(videoName);
-				record.setProName(proName);
-				record.setProType(proType);
-				record.setUsername(username);
-				record.setUploadTime(df.format(new Date()));
-
-				// Seesion
-				System.out.println("时间:" + record.getUploadTime());
-				System.out.println(record.getVideoName());
 			}
-			videoService.insertVideo(record);
-			return "production";
-		} else {
-			return "fileUpload";
-		}
+			String videoName = record.getVideoName();
+			String proName = request.getParameter("pName");
+			String proType = request.getParameter("textType");
+			String username = (String) httpSession.getAttribute("username");
+			System.out.println("username：" + username + "videoName:"
+					+ videoName + "proName:" + proName + "proType:" + proType);
+			record.setVideoName(videoName);
+			record.setProName(proName);
+			record.setProType(proType);
+			record.setUsername(username);
+			record.setUploadTime(df.format(new Date()));
 
+			// Seesion
+			System.out.println("时间:" + record.getUploadTime());
+			System.out.println(record.getVideoName());
+			// 判断上传视频类型
+			int position = videoName.lastIndexOf(".");
+			String lastName = videoName.substring(position, videoName.length());
+			if (record.getProName().equals("")) {
+				massage = "视频的主题不能为空！";
+				request.setAttribute("massage", massage);
+				url = "fileUpload";
+			} else {
+				if (videoName.equals("") || videoName == null) {
+					massage = "请选择您要上传的视频！";
+					request.setAttribute("massage", massage);
+					url = "fileUpload";
+				} else {
+					if (!(".mp4".equalsIgnoreCase(lastName)
+							|| ".webm".equalsIgnoreCase(lastName) || ".ogg"
+								.equalsIgnoreCase(lastName))) {
+						massage = "请选择mp4,webm,ogg格式的视频上传！";
+						request.setAttribute("massage", massage);
+						url = "fileUpload";
+					} else {
+						videoService.insertVideo(record);
+						url = "production";
+					}
+				}
+			}
+		}
+		return url;
+	}
+
+	@RequestMapping("audioUpload")
+	public String audioUpload(Audio record, HttpServletRequest request,
+			HttpSession httpSession) throws IllegalStateException, IOException {
+		String massage = "";
+		String url = "";
+		UUIDUtil uuidUtil = new UUIDUtil();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// 设置上下方文
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
+				request.getSession().getServletContext());
+		// 检查form是否有enctype="multipart/form-data"
+		if (multipartResolver.isMultipart(request)) {
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+			Iterator<String> iter = multiRequest.getFileNames();
+			while (iter.hasNext()) {
+				// 由CommonsMultipartFile继承而来,拥有上面的方法.
+				MultipartFile file = multiRequest.getFile(iter.next());
+				if (file != null) {
+					String fileName = file.getOriginalFilename();
+					record.setAuName(fileName);
+					// System.out.println(request.getSession().getServletContext()
+					// .getRealPath("/"));
+					String path = request.getSession().getServletContext()
+							.getRealPath("/")
+							+ "audio/" + fileName;
+					File localFile = new File(path);
+					file.transferTo(localFile);
+				}
+			}
+			// @SuppressWarnings("static-access")
+			// String auId = uuidUtil.createUUID();
+			String audioName = record.getAuName();
+			String proName = request.getParameter("pName");
+			String auType = request.getParameter("textType");
+			String translation = request.getParameter("translation");
+			String username = (String) httpSession.getAttribute("username");
+			System.out.println("username：" + username + "videoName:"
+					+ audioName + "proName:" + proName + "proType:" + auType);
+			// record.setAuId(auId);
+			record.setAuName(audioName);
+			record.setProName(proName);
+			record.setAuType(auType);
+			record.setTranslation(translation);
+			record.setUsername(username);
+			record.setUploadTime(df.format(new Date()));
+
+			// Seesion
+			System.out.println("时间:" + record.getUploadTime());
+			System.out.println(record.getAuName());
+			// 判断上传音频类型
+			int position = audioName.lastIndexOf(".");
+			String lastName = audioName.substring(position, audioName.length());
+			if (record.getProName().equals("")) {
+				massage = "音频的主题不能为空！";
+				request.setAttribute("massage", massage);
+				url = "audioUpload";
+			} else {
+				if (audioName.equals("") || audioName == null) {
+					massage = "请选择您要上传的音频！";
+					request.setAttribute("massage", massage);
+					url = "audioUpload";
+				} else {
+					if (!(".mp3".equalsIgnoreCase(lastName)
+							|| ".wav".equalsIgnoreCase(lastName) || ".ogg"
+								.equalsIgnoreCase(lastName))) {
+						massage = "请选择mp3,wav,ogg格式的音频上传！";
+						request.setAttribute("massage", massage);
+						url = "audioUpload";
+					} else {
+						audioService.insertAudio(record);
+						url = "production";
+					}
+				}
+			}
+		}
+		return url;
+	}
+
+	@RequestMapping("pictureUpload")
+	public String pictureUpload(Picture record, HttpServletRequest request,
+			HttpSession httpSession) throws IllegalStateException, IOException {
+		String massage = "";
+		String url = "";
+		UUIDUtil uuidUtil = new UUIDUtil();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		// 设置上下方文
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
+				request.getSession().getServletContext());
+		// 检查form是否有enctype="multipart/form-data"
+		if (multipartResolver.isMultipart(request)) {
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+			Iterator<String> iter = multiRequest.getFileNames();
+			while (iter.hasNext()) {
+				// 由CommonsMultipartFile继承而来,拥有上面的方法.
+				MultipartFile file = multiRequest.getFile(iter.next());
+				if (file != null) {
+					String fileName = file.getOriginalFilename();
+					record.setPicName(fileName);
+					// System.out.println(request.getSession().getServletContext()
+					// .getRealPath("/"));
+					String path = request.getSession().getServletContext()
+							.getRealPath("/")
+							+ "picture/" + fileName;
+					File localFile = new File(path);
+					file.transferTo(localFile);
+				}
+			}
+			// @SuppressWarnings("static-access")
+			// String auId = uuidUtil.createUUID();
+			String pictureName = record.getPicName();
+			String proName = request.getParameter("pName");
+			String pictureType = request.getParameter("textType");
+			String username = (String) httpSession.getAttribute("username");
+			System.out.println("username：" + username + "videoName:"
+					+ pictureName + "proName:" + proName + "proType:"
+					+ pictureType);
+			// record.setAuId(auId);
+			record.setPicName(pictureName);
+			record.setProName(proName);
+			record.setPicType(pictureType);
+			record.setUsername(username);
+			record.setUploadTime(df.format(new Date()));
+
+			// Seesion
+			System.out.println("时间:" + record.getUploadTime());
+			System.out.println(record.getPicName());
+			// 判断上传音频类型
+			int position = pictureName.lastIndexOf(".");
+			String lastName = pictureName.substring(position,
+					pictureName.length());
+			if (record.getProName().equals("")) {
+				massage = "图片的主题不能为空！";
+				request.setAttribute("massage", massage);
+				url = "pictureUpload";
+			} else {
+				if (pictureName.equals("") || pictureName == null) {
+					massage = "请选择您要上传的图片！";
+					request.setAttribute("massage", massage);
+					url = "pictureUpload";
+				} else {
+					if (!(".jpg".equalsIgnoreCase(lastName)
+							|| ".jpeg".equalsIgnoreCase(lastName)
+							|| ".png".equalsIgnoreCase(lastName) || ".gif"
+								.equalsIgnoreCase(lastName))) {
+						massage = "请选择jpg,jpeg,png,gif格式的音频上传！";
+						request.setAttribute("massage", massage);
+						url = "pictureUpload";
+					} else {
+						pictureService.insertPicture(record);
+						url = "production";
+					}
+				}
+			}
+		}
+		return url;
 	}
 
 	@RequestMapping("uploadHeadImage")

@@ -16,7 +16,8 @@ public class VideoServiceImpl implements VideoService {
 
 	@Override
 	public void insertVideo(Video record) {
-		System.out.println(record.getProName() + "##" + record.getUsername());
+		// System.out.println(record.getProName() + "##" +
+		// record.getUsername());
 		String videoId = UUID.randomUUID().toString().replaceAll("-", "");
 		record.setVideoId(videoId);
 		int a = videoMapper.insert(record);

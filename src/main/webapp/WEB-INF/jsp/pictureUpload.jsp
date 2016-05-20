@@ -9,16 +9,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>  
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
-<link rel="stylesheet" type="text/css" href="css/fileUpload.css">
+<link rel="stylesheet" type="text/css" href="css/pictureUpload.css">
 <script type="text/javascript" src="js/dialog.js"></script>
 <title>文件上传</title>  
 </head>  
 <body>  
     <%--<form action="user/fileUpload" method="post" enctype="multipart/form-data">--%>  
-    <form action="${pageContext.request.contextPath}/fileUpload.do" method="post" enctype="multipart/form-data">
+    <form action="${pageContext.request.contextPath}/pictureUpload.do" method="post" enctype="multipart/form-data">
         <table align="center" cellspacing="5" cellpadding="5" id="upload_table">
         <tr>
-        	<td><span id="error_td"><%=request.getAttribute("massage") %></span></td>
+        	<td><span id="error_td"></span></td>
         	<!-- ${ reqeustScope.massage } -->
         </tr>
         <tr>

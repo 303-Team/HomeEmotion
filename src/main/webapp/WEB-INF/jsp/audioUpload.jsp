@@ -9,16 +9,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>  
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
-<link rel="stylesheet" type="text/css" href="css/fileUpload.css">
-<script type="text/javascript" src="js/dialog.js"></script>
+<link rel="stylesheet" type="text/css" href="css/audioUpload.css">
+<script type="text/javascript" src="js/audio.js"></script>
 <title>文件上传</title>  
 </head>  
 <body>  
     <%--<form action="user/fileUpload" method="post" enctype="multipart/form-data">--%>  
-    <form action="${pageContext.request.contextPath}/fileUpload.do" method="post" enctype="multipart/form-data">
+    <form action="${pageContext.request.contextPath}/audioUpload.do" method="post" enctype="multipart/form-data">
         <table align="center" cellspacing="5" cellpadding="5" id="upload_table">
         <tr>
-        	<td><span id="error_td"><%=request.getAttribute("massage") %></span></td>
+        	<td><span id="error_td"></span></td>
         	<!-- ${ reqeustScope.massage } -->
         </tr>
         <tr>
@@ -31,9 +31,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	<td>类型：</td><td><input type="radio" name="textType" value="0" checked="true"/>娱乐<input type="radio" name="textType" value="1"/>风俗<input type="radio" name="textType" value="2"/>旅行<input type="radio" name="textType" value="3"/>随记</td>
         </tr>
         <tr>
+        	<td>译文</td><td><textarea type="text" name="translation" autoHeight="true" id="translation"></textarea></td>
+        </tr>
+        <tr>
         	<td></td><td><input type="submit" value="上传" id="upload_input" /></td>
         </tr>
         </table>
-    </form>  
+    </form>
 </body>  
 </html>
