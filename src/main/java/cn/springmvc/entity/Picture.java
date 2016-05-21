@@ -9,6 +9,8 @@ public class Picture implements Serializable {
 
     private String picType;
 
+    private String userId;
+
     private String username;
 
     private String proName;
@@ -43,6 +45,14 @@ public class Picture implements Serializable {
 
     public void setPicType(String picType) {
         this.picType = picType == null ? null : picType.trim();
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
     public String getUsername() {

@@ -5,6 +5,7 @@
     <id column="au_id" property="auId" jdbcType="VARCHAR" />
     <result column="au_name" property="auName" jdbcType="VARCHAR" />
     <result column="pro_name" property="proName" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="au_type" property="auType" jdbcType="VARCHAR" />
     <result column="upload_time" property="uploadTime" jdbcType="VARCHAR" />
@@ -71,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    au_id, au_name, pro_name, username, au_type, upload_time, delete_flag, hot, translation
+    au_id, au_name, pro_name, user_id, username, au_type, upload_time, delete_flag, hot, 
+    translation
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.springmvc.entity.AudioExample" >
     select
@@ -108,13 +110,13 @@
   </delete>
   <insert id="insert" parameterType="cn.springmvc.entity.Audio" >
     insert into audio (au_id, au_name, pro_name, 
-      username, au_type, upload_time, 
-      delete_flag, hot, translation
-      )
+      user_id, username, au_type, 
+      upload_time, delete_flag, hot, 
+      translation)
     values (#{auId,jdbcType=VARCHAR}, #{auName,jdbcType=VARCHAR}, #{proName,jdbcType=VARCHAR}, 
-      #{username,jdbcType=VARCHAR}, #{auType,jdbcType=VARCHAR}, #{uploadTime,jdbcType=VARCHAR}, 
-      #{deleteFlag,jdbcType=CHAR}, #{hot,jdbcType=INTEGER}, #{translation,jdbcType=VARCHAR}
-      )
+      #{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{auType,jdbcType=VARCHAR}, 
+      #{uploadTime,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=CHAR}, #{hot,jdbcType=INTEGER}, 
+      #{translation,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.springmvc.entity.Audio" >
     insert into audio
@@ -127,6 +129,9 @@
       </if>
       <if test="proName != null" >
         pro_name,
+      </if>
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="username != null" >
         username,
@@ -156,6 +161,9 @@
       </if>
       <if test="proName != null" >
         #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
@@ -195,6 +203,9 @@
       <if test="record.proName != null" >
         pro_name = #{record.proName,jdbcType=VARCHAR},
       </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
       <if test="record.username != null" >
         username = #{record.username,jdbcType=VARCHAR},
       </if>
@@ -223,6 +234,7 @@
     set au_id = #{record.auId,jdbcType=VARCHAR},
       au_name = #{record.auName,jdbcType=VARCHAR},
       pro_name = #{record.proName,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
       au_type = #{record.auType,jdbcType=VARCHAR},
       upload_time = #{record.uploadTime,jdbcType=VARCHAR},
@@ -241,6 +253,9 @@
       </if>
       <if test="proName != null" >
         pro_name = #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
@@ -267,6 +282,7 @@
     update audio
     set au_name = #{auName,jdbcType=VARCHAR},
       pro_name = #{proName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
       au_type = #{auType,jdbcType=VARCHAR},
       upload_time = #{uploadTime,jdbcType=VARCHAR},

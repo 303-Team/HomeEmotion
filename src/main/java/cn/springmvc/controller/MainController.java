@@ -217,16 +217,21 @@ public class MainController {
 					file.transferTo(localFile);
 				}
 			}
+			String videoId = uuidUtil.createUUID();
 			String videoName = record.getVideoName();
 			String proName = request.getParameter("pName");
 			String proType = request.getParameter("textType");
 			String username = (String) httpSession.getAttribute("username");
-			System.out.println("username：" + username + "videoName:"
-					+ videoName + "proName:" + proName + "proType:" + proType);
+			String userId = (String) httpSession.getAttribute("id");
+			System.out.println("uuid:" + videoId + "username：" + username
+					+ "videoName:" + videoName + "proName:" + proName
+					+ "proType:" + proType);
+			record.setVideoId(videoId);
 			record.setVideoName(videoName);
 			record.setProName(proName);
 			record.setProType(proType);
 			record.setUsername(username);
+			record.setUserId(userId);
 			record.setUploadTime(df.format(new Date()));
 
 			// Seesion
@@ -291,19 +296,21 @@ public class MainController {
 				}
 			}
 			// @SuppressWarnings("static-access")
-			// String auId = uuidUtil.createUUID();
+			String auId = uuidUtil.createUUID();
 			String audioName = record.getAuName();
 			String proName = request.getParameter("pName");
 			String auType = request.getParameter("textType");
 			String translation = request.getParameter("translation");
+			String userId = (String) httpSession.getAttribute("id");
 			String username = (String) httpSession.getAttribute("username");
 			System.out.println("username：" + username + "videoName:"
 					+ audioName + "proName:" + proName + "proType:" + auType);
-			// record.setAuId(auId);
+			record.setAuId(auId);
 			record.setAuName(audioName);
 			record.setProName(proName);
 			record.setAuType(auType);
 			record.setTranslation(translation);
+			record.setUserId(userId);
 			record.setUsername(username);
 			record.setUploadTime(df.format(new Date()));
 
@@ -363,24 +370,26 @@ public class MainController {
 					// .getRealPath("/"));
 					String path = request.getSession().getServletContext()
 							.getRealPath("/")
-							+ "picture/" + fileName;
+							+ "images/scenery/" + fileName;
 					File localFile = new File(path);
 					file.transferTo(localFile);
 				}
 			}
 			// @SuppressWarnings("static-access")
-			// String auId = uuidUtil.createUUID();
+			String pictureId = uuidUtil.createUUID();
 			String pictureName = record.getPicName();
 			String proName = request.getParameter("pName");
 			String pictureType = request.getParameter("textType");
+			String userId = (String) httpSession.getAttribute("id");
 			String username = (String) httpSession.getAttribute("username");
 			System.out.println("username：" + username + "videoName:"
 					+ pictureName + "proName:" + proName + "proType:"
 					+ pictureType);
-			// record.setAuId(auId);
+			record.setPicId(pictureId);
 			record.setPicName(pictureName);
 			record.setProName(proName);
 			record.setPicType(pictureType);
+			record.setUserId(userId);
 			record.setUsername(username);
 			record.setUploadTime(df.format(new Date()));
 

@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="submit_div">
 			<form>
 				<textarea autoHeight="true" id="myComment"></textarea>
-				<div id="commit_div"><input type="submit" value="评论" /></div>
+				<div id="commit_div"><input type="button" value="评论" onclick="giveComment()"/></div>
 			</form>
 		</div>
 	</div>

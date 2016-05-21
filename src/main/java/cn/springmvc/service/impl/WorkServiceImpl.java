@@ -1,10 +1,15 @@
 package cn.springmvc.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 //import net.sf.json.JSONArray;
+import java.util.UUID;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +48,6 @@ public class WorkServiceImpl implements WorkService{
 	
 	@Override
 	public List<Object> getWorkByPro(String id) {
-//		Map<String, Object> result = new HashMap<String, Object>();
 		List<Object> result = new ArrayList<Object>();// 
 		Map<String, String> name = new HashMap<String, String>();
 		UserExample userExample = new UserExample();
@@ -53,88 +57,87 @@ public class WorkServiceImpl implements WorkService{
 		for (User user : users) {
 			userId.add(user.getId());
 			name.put(user.getId(), user.getUsername());
-//			System.out.println(user.getUsername());
 		}
 		List<Map<String, Object>> hotVideo = new ArrayList<Map<String, Object>>();
 		VideoExample videoExample = new VideoExample();
-		videoExample.or().andDeleteFlagEqualTo("0").andUsernameIn(userId);
+		videoExample.or().andDeleteFlagEqualTo("0").andUserIdIn(userId);
 		videoExample.setOrderByClause("hot desc");
 		videoExample.setLimitStart(0);
 		videoExample.setLimitEnd(8);
 		List<Video> v = videoMapper.selectByExample(videoExample);
 		for (Video video : v) {
 			Map<String, Object> vMap = new HashMap<>();
-			vMap.put("name", name.get(video.getUsername()));
+			vMap.put("name", name.get(video.getUserId()));
 			vMap.put("data", video);
 			hotVideo.add(vMap);
 		}
 		
 		List<Map<String, Object>> lastVideo = new ArrayList<Map<String, Object>>();
 		VideoExample videoExample2 = new VideoExample();
-		videoExample2.or().andDeleteFlagEqualTo("0").andUsernameIn(userId);
+		videoExample2.or().andDeleteFlagEqualTo("0").andUserIdIn(userId);
 		videoExample2.setOrderByClause("upload_time desc");
 		videoExample2.setLimitStart(0);
 		videoExample2.setLimitEnd(10);
 		List<Video> v2 = videoMapper.selectByExample(videoExample2);
 		for (Video video : v2) {
 			Map<String, Object> vMap = new HashMap<>();
-			vMap.put("name", name.get(video.getUsername()));
+			vMap.put("name", name.get(video.getUserId()));
 			vMap.put("data", video);
 			lastVideo.add(vMap);
 		}
 		
 		List<Map<String, Object>> hotAudio = new ArrayList<Map<String, Object>>();
 		AudioExample audioExample = new AudioExample();
-		audioExample.or().andDeleteFlagEqualTo("0").andUsernameIn(userId);
+		audioExample.or().andDeleteFlagEqualTo("0").andUserIdIn(userId);
 		audioExample.setOrderByClause("hot desc");
 		audioExample.setLimitStart(0);
 		audioExample.setLimitEnd(9);
 		List<Audio> a = audioMapper.selectByExample(audioExample);
 		for (Audio audio : a) {
 			Map<String, Object> aMap = new HashMap<>();
-			aMap.put("name", name.get(audio.getUsername()));
+			aMap.put("name", name.get(audio.getUserId()));
 			aMap.put("data", audio);
 			hotAudio.add(aMap);
 		}
 		
 		List<Map<String, Object>> lastAudio = new ArrayList<Map<String, Object>>();
 		AudioExample audioExample2 = new AudioExample();
-		audioExample2.or().andDeleteFlagEqualTo("0").andUsernameIn(userId);
+		audioExample2.or().andDeleteFlagEqualTo("0").andUserIdIn(userId);
 		audioExample2.setOrderByClause("upload_time desc");
 		audioExample2.setLimitStart(0);
 		audioExample2.setLimitEnd(10);
 		List<Audio> a2 = audioMapper.selectByExample(audioExample2);
 		for (Audio audio : a2) {
 			Map<String, Object> aMap = new HashMap<>();
-			aMap.put("name", name.get(audio.getUsername()));
+			aMap.put("name", name.get(audio.getUserId()));
 			aMap.put("data", audio);
 			lastAudio.add(aMap);
 		}
 		
 		List<Map<String, Object>> hotPic = new ArrayList<Map<String, Object>>();
 		PictureExample pictureExample = new PictureExample();
-		pictureExample.or().andDeleteFlagEqualTo("0").andUsernameIn(userId);
+		pictureExample.or().andDeleteFlagEqualTo("0").andUserIdIn(userId);
 		pictureExample.setOrderByClause("hot desc");
 		pictureExample.setLimitStart(0);
 		pictureExample.setLimitEnd(8);
 		List<Picture> p = pictureMapper.selectByExample(pictureExample);
 		for (Picture picture : p) {
 			Map<String, Object> pMap = new HashMap<>();
-			pMap.put("name", name.get(picture.getUsername()));
+			pMap.put("name", name.get(picture.getUserId()));
 			pMap.put("data", picture);
 			hotPic.add(pMap);
 		}
 		
 		List<Map<String, Object>> lastPic = new ArrayList<Map<String, Object>>();
 		PictureExample pictureExample2 = new PictureExample();
-		pictureExample2.or().andDeleteFlagEqualTo("0").andUsernameIn(userId);
+		pictureExample2.or().andDeleteFlagEqualTo("0").andUserIdIn(userId);
 		pictureExample2.setOrderByClause("upload_time desc");
 		pictureExample2.setLimitStart(0);
 		pictureExample2.setLimitEnd(10);
 		List<Picture> p2 = pictureMapper.selectByExample(pictureExample2);
 		for (Picture picture : p2) {
 			Map<String, Object> pMap = new HashMap<>();
-			pMap.put("name", name.get(picture.getUsername()));
+			pMap.put("name", name.get(picture.getUserId()));
 			pMap.put("data", picture);
 			lastPic.add(pMap);
 		}
@@ -174,13 +177,13 @@ public class WorkServiceImpl implements WorkService{
 			VideoExample videoExample = new VideoExample();
 			VideoExample.Criteria criteria = videoExample.createCriteria(); 
 			if (name != null && !name.isEmpty()) {
-				criteria.andVideoNameEqualTo(name.trim());
+				criteria.andVideoNameLike("%"+name.trim()+"%");
 			}
 			if (pType != null && !pType.isEmpty()) {
 				criteria.andProTypeEqualTo(pType);
 			}
 			if (address != null && !address.isEmpty()) {
-				criteria.andUsernameIn(ids);
+				criteria.andUserIdIn(ids);
 			}
 			criteria.andDeleteFlagEqualTo("0");
 			if (px.equals("1")) {
@@ -191,7 +194,7 @@ public class WorkServiceImpl implements WorkService{
 			List<Video> a = videoMapper.selectByExample(videoExample);
 			List<String> b = new ArrayList<String>();
 			for (Video video : a) {
-				b.add(nameMap.get(video.getUsername()));
+				b.add(nameMap.get(video.getUserId()));
 			}
 			result.put("name", b);
 			result.put("data", a);
@@ -207,7 +210,7 @@ public class WorkServiceImpl implements WorkService{
 				criteria.andAuTypeEqualTo(pType);
 			}
 			if (address != null && !address.isEmpty()) {
-				criteria.andUsernameIn(ids);
+				criteria.andUserIdIn(ids);
 			}
 			criteria.andDeleteFlagEqualTo("0");
 			if (px.equals("1")) {
@@ -218,7 +221,7 @@ public class WorkServiceImpl implements WorkService{
 			List<Audio> a = audioMapper.selectByExample(audioExample);
 			List<String> b = new ArrayList<String>();
 			for (Audio audio : a) {
-				b.add(nameMap.get(audio.getUsername()));
+				b.add(nameMap.get(audio.getUserId()));
 			}
 			result.put("name", b);
 			result.put("data", a);
@@ -234,7 +237,7 @@ public class WorkServiceImpl implements WorkService{
 				criteria.andPicTypeEqualTo(pType);
 			}
 			if (address != null && !address.isEmpty()) {
-				criteria.andUsernameIn(ids);
+				criteria.andUserIdIn(ids);
 			}
 			criteria.andDeleteFlagEqualTo("0");
 			if (px.equals("1")) {
@@ -245,7 +248,7 @@ public class WorkServiceImpl implements WorkService{
 			List<Picture> a = pictureMapper.selectByExample(pictureExample);
 			List<String> b = new ArrayList<String>();
 			for (Picture picture : a) {
-				b.add(nameMap.get(picture.getUsername()));
+				b.add(nameMap.get(picture.getUserId()));
 			}
 			result.put("name", b);
 			result.put("data", a);
@@ -296,4 +299,87 @@ public class WorkServiceImpl implements WorkService{
 		map.put("child", child);
 		return map;
 	}
+
+	@Override
+	public Object giveComment(String pid, String type, String touser, Object username, String content) {
+		Comment comment = new Comment();
+		comment.setType(type);
+		comment.setTouser(touser);
+		comment.setPid(pid);
+		comment.setUserid(username.toString());
+		comment.setDeleteFlag("0");
+		comment.setContent(content);
+		comment.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		comment.setDate(sim.format(Calendar.getInstance().getTime()));
+		if (commentMapper.insert(comment) == 1) {
+			return "评论成功";
+		}
+		return "评论失败";
+	}
+
+	@Override
+	public void good(String id, String type) {
+		if (type.equals("0")) {
+			Video video = videoMapper.selectByPrimaryKey(id);
+			if (video == null || video.getHot() == null) {
+				video.setHot(5);
+			}else {
+				video.setHot(video.getHot()+5);
+			}
+			videoMapper.updateByPrimaryKeySelective(video);
+		}
+		if (type.equals("1")) {
+			Picture picture = pictureMapper.selectByPrimaryKey(id);
+			if (picture == null || picture.getHot() == null) {
+				picture.setHot(5);
+			}else {
+				picture.setHot(picture.getHot()+5);
+			}
+			pictureMapper.updateByPrimaryKeySelective(picture);
+		}
+		if (type.equals("2")) {
+			Audio audio = audioMapper.selectByPrimaryKey(id);
+			if (audio == null || audio.getHot() == null) {
+				audio.setHot(5);
+			}else {
+				audio.setHot(audio.getHot()+5);
+			}
+			audioMapper.updateByPrimaryKeySelective(audio);
+		}
+
+	}
+
+	@Override
+	public void plus(String id, String type) {
+//		if (type.equals("0")) {
+//			Video video = videoMapper.selectByPrimaryKey(id);
+//			if (video == null || video.getHot() == null) {
+//				video.setHot(1);
+//			}else {
+//				video.setHot(video.getHot()+1);
+//			}
+//			videoMapper.updateByPrimaryKeySelective(video);
+//		}
+//		if (type.equals("1")) {
+//			Picture picture = pictureMapper.selectByPrimaryKey(id);
+//			if (picture == null || picture.getHot() == null) {
+//				picture.setHot(1);
+//			}else {
+//				picture.setHot(picture.getHot()+1);
+//			}
+//			pictureMapper.updateByPrimaryKeySelective(picture);
+//		}
+//		if (type.equals("2")) {
+//			Audio audio = audioMapper.selectByPrimaryKey(id);
+//			if (audio == null || audio.getHot() == null) {
+//				audio.setHot(1);
+//			}else {
+//				audio.setHot(audio.getHot()+1);
+//			}
+//			audioMapper.updateByPrimaryKeySelective(audio);
+//		}
+
+	}
+
 }

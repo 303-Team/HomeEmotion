@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="css/player.css">
 	<link rel="stylesheet" type="text/css" href="css/scenery.css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/good.js"></script>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -27,6 +28,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  <input type="hidden" id="type" value="2">
+  <div id="flt" name="flt" style="vertical-align:middle; position:fixed; right:0px; top:200px;" onclick="good('${id}')"><img src="images/good.png" >
+  </div>
     <jsp:include page="header.jsp" flush="true" />
     <div id="middle_div"><img src="images/scenery/${src }" /></div>
     <jsp:include page="comment.jsp" flush="true" />

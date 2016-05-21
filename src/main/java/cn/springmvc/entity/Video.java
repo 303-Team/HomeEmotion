@@ -3,96 +3,105 @@ package cn.springmvc.entity;
 import java.io.Serializable;
 
 public class Video implements Serializable {
-	private String videoId;
+    private String videoId;
 
-	private String videoName;
+    private String videoName;
 
-	private String proName;
+    private String proName;
 
-	private String username;
+    private String userId;
 
-	private String proType;
+    private String username;
 
-	private String uploadTime;
+    private String proType;
 
-	private String deleteFlag;
+    private String uploadTime;
 
-	private String picName;
+    private String deleteFlag;
 
-	private Integer hot;
+    private String picName;
 
-	private static final long serialVersionUID = 1L;
+    private Integer hot;
 
-	public String getVideoId() {
-		return videoId;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public void setVideoId(String videoId) {
-		this.videoId = videoId == null ? null : videoId.trim();
-	}
+    public String getVideoId() {
+        return videoId;
+    }
 
-	public String getVideoName() {
-		return videoName;
-	}
+    public void setVideoId(String videoId) {
+        this.videoId = videoId == null ? null : videoId.trim();
+    }
 
-	public void setVideoName(String videoName) {
-		this.videoName = videoName == null ? null : videoName.trim();
-	}
+    public String getVideoName() {
+        return videoName;
+    }
 
-	public String getProName() {
-		return proName;
-	}
+    public void setVideoName(String videoName) {
+        this.videoName = videoName == null ? null : videoName.trim();
+    }
 
-	public void setProName(String proName) {
-		this.proName = proName == null ? null : proName.trim();
-	}
+    public String getProName() {
+        return proName;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setProName(String proName) {
+        this.proName = proName == null ? null : proName.trim();
+    }
 
-	public void setUsername(String username) {
-		this.username = username == null ? null : username.trim();
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public String getProType() {
-		return proType;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
+    }
 
-	public void setProType(String proType) {
-		this.proType = proType == null ? null : proType.trim();
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getUploadTime() {
-		return uploadTime;
-	}
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
 
-	public void setUploadTime(String uploadTime) {
-		this.uploadTime = uploadTime == null ? null : uploadTime.trim();
-	}
+    public String getProType() {
+        return proType;
+    }
 
-	public String getDeleteFlag() {
-		return deleteFlag;
-	}
+    public void setProType(String proType) {
+        this.proType = proType == null ? null : proType.trim();
+    }
 
-	public void setDeleteFlag(String deleteFlag) {
-		this.deleteFlag = deleteFlag == null ? null : deleteFlag.trim();
-	}
+    public String getUploadTime() {
+        return uploadTime;
+    }
 
-	public String getPicName() {
-		return picName;
-	}
+    public void setUploadTime(String uploadTime) {
+        this.uploadTime = uploadTime == null ? null : uploadTime.trim();
+    }
 
-	public void setPicName(String picName) {
-		this.picName = picName == null ? null : picName.trim();
-	}
+    public String getDeleteFlag() {
+        return deleteFlag;
+    }
 
-	public Integer getHot() {
-		return hot;
-	}
+    public void setDeleteFlag(String deleteFlag) {
+        this.deleteFlag = deleteFlag == null ? null : deleteFlag.trim();
+    }
 
-	public void setHot(Integer hot) {
-		this.hot = hot;
-	}
+    public String getPicName() {
+        return picName;
+    }
 
+    public void setPicName(String picName) {
+        this.picName = picName == null ? null : picName.trim();
+    }
+
+    public Integer getHot() {
+        return hot;
+    }
+
+    public void setHot(Integer hot) {
+        this.hot = hot;
+    }
 }

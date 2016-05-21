@@ -24,12 +24,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
 	<script type="text/javascript" src="js/jplayer.playlist.min.js"></script>
 	<script type="text/javascript" src="js/language.js"></script>
+	<script type="text/javascript" src="js/good.js"></script>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
   </head>
   
   <body>
+  <input type="hidden" id="type" value="1">
+  <div id="flt" name="flt" style="vertical-align:middle; position:fixed; right:0px; top:200px;" onclick="good('${id}')"><img src="images/good.png" >
+  </div>
   <jsp:include page="header.jsp" flush="true" />
   <div id="audio_div">
     <div id="jquery_jplayer_1" class="jp-jplayer"></div>

@@ -24,6 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="js/strings.js"></script>
 	<script src="js/px-video.js"></script>
 	<script src="js/player.js"></script>
+	<script type="text/javascript" src="js/good.js"></script>
 	<style>
 		/*** for demo only ***/
 		#wrapper {
@@ -46,6 +47,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
   </head>
   <body>
+  <input type="hidden" id="type" value="0">
+ <div id="flt" name="flt" style="vertical-align:middle; position:fixed; right:0px; top:200px;" onclick="good('${id}')"><img src="images/good.png" >
+  </div>
     <jsp:include page="header.jsp" flush="true" />
 		
 			<div id="wrapper">

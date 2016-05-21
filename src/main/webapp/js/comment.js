@@ -30,7 +30,7 @@ function analize(result,htm) {
 				"<img src='images/scenery/1.jpg' /></div></td><td><div class='content_div'><span><a href='##'>"+result[i].user.username+":" +
 				"</a>"+result[i].data.content+"</span></div></td></tr><tr><td><div class='detail_div'>时间:" +
 						"<span class='time_span'>"+result[i].data.date+"</span><span class='response_span'><a href='javascript:void(0);' " +
-								"onclick = refect('"+result[i].user.username+"','"+result[i].user.id+"');>回复" +
+								"onclick = refect('"+result[i].user.username+"','"+result[i].data.id+"');>回复" +
 						"</a></span></div></td></tr>"
 		htm = child(result[i].child,htm);
 		htm += "</table>"
@@ -44,9 +44,9 @@ function child(result,htm) {
 				"<img src='images/scenery/1.jpg' /></div></td><td><div class='content_div'><span><a href='##'>"+result[i].user.username+":" +
 				"</a>"+result[i].data.content+"</span></div></td></tr><tr><td><div class='detail_div'>时间:" +
 						"<span class='time_span'>"+result[i].data.date+"</span><span class='response_span'><a href='javascript:void(0);'" +
-								"onclick = refect('"+result[i].user.username+"','"+result[i].user.id+"');>回复" +
+								"onclick = refect('"+result[i].user.username+"','"+result[i].data.id+"');>回复" +
 						"</a></span></div></td></tr>"
-		htm = analize(result[i].child,htm);
+		htm = child(result[i].child,htm);
 		htm += "</table></td></tr>"
 	}
 	return htm;
@@ -81,4 +81,27 @@ function refect(name , id) {
 	$('#refelt').val(id);
 	$('#myComment').val('@'+name+":     ");
 	document.getElementsByTagName('BODY')[0].scrollTop=document.getElementsByTagName('BODY')[0].scrollHeight;
+}
+function giveComment() {
+	var pid = $('#pid').val();
+	var type = $('#type').val();
+	var touser = $('#refelt').val();
+	var content = $('#myComment').val();
+	$.ajax({
+		type : 'post',
+		async : true,
+		dataType : 'text',
+		data : {'pid':pid,'type':type,'touser':touser,'content':content},
+		url : "/HomeEmotions/giveComment.do",
+		success : function(result) {
+			//操作成功
+			alert(result);
+		},
+		error : function(x) {
+			alert("评论失败");
+		}
+	});
+	setTimeout(function () {
+		window.location.href=window.location.href;
+	}, 1000);
 }

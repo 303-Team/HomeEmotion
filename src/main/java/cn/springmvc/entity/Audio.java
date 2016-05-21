@@ -9,6 +9,8 @@ public class Audio implements Serializable {
 
     private String proName;
 
+    private String userId;
+
     private String username;
 
     private String auType;
@@ -45,6 +47,14 @@ public class Audio implements Serializable {
 
     public void setProName(String proName) {
         this.proName = proName == null ? null : proName.trim();
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
     public String getUsername() {

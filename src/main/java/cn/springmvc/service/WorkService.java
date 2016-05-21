@@ -12,4 +12,10 @@ public interface WorkService {
 
 	Object getComment(String pid, String type, int page);
 
+	Object giveComment(String pid, String type, String touser, Object username, String content);
+
+	void good(String id, String type);
+
+	void plus(String id, String string);
+
 }
