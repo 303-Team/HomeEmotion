@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -31,37 +32,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	<!--  <div id="menul"><div id="uploading"><a href="uploading.do">上传作品</a></div>-->
     	<div id="menul"><div id="uploading"><button onclick="openForms()">上传作品</button></div>
     	<div id="deleteAll"><button>批量删除</button></div></div>
-    	<div id="search_div"><input type="text" /><button>搜索</button></div>
+    	<div id="search_div"><input type="text" /><button href="searchVideo.do">搜索</button></div>
     	<div id="production_list_div">
     		<table align="center" cellspacing="15" cellpadding="10" id="data_table">
     			<th><input name="all" type="checkbox" value="" /></th><th>序号</th><th>名称</th><th>类型</th><th>上传时间</th><th>操作</th>
+    			<c:forEach items="${videoList }" var="item"  varStatus="i">
     			<tr>
-    				<td><input name="01" type="checkbox" value="" /></td><td>01</td><td>天眼传奇</td><td>娱乐</td><td>2016-04-23 16:23:09</td><td><a href="#" class="opration">查看</a><a href="#" class="opration">修改</a><a href="#" class="opration">删除</a></td>
+    				<td><input name="check" type="checkbox" value="" /></td><td>${i.index+1}</td><td>${item.proName}</td><td>${item.proType}</td><td>${item.uploadTime}</td>
+    				<td>
+    					<a href="player.do?id=${item.videoId}&src=${item.videoName}" class="opration">查看</a>
+    					<a href="updateVideo.do?id=${item.videoId}" class="opration">修改</a>
+    					<a href="deleteVideo.do?id=${item.videoId}" class="opration">删除</a></td>
     			</tr>
-    			<tr>
-    				<td><input name="01" type="checkbox" value="" /></td><td>01</td><td>天眼传奇</td><td>娱乐</td><td>2016-04-23 16:23:09</td><td>删除</td>
-    			</tr>
-    			<tr>
-    				<td><input name="01" type="checkbox" value="" /></td><td>01</td><td>天眼传奇</td><td>娱乐</td><td>2016-04-23 16:23:09</td><td>删除</td>
-    			</tr>
-    			<tr>
-    				<td><input name="01" type="checkbox" value="" /></td><td>01</td><td>天眼传奇</td><td>娱乐</td><td>2016-04-23 16:23:09</td><td>删除</td>
-    			</tr>
-    			<tr>
-    				<td><input name="01" type="checkbox" value="" /></td><td>01</td><td>天眼传奇</td><td>娱乐</td><td>2016-04-23 16:23:09</td><td>删除</td>
-    			</tr>
-    			<tr>
-    				<td><input name="01" type="checkbox" value="" /></td><td>01</td><td>天眼传奇</td><td>娱乐</td><td>2016-04-23 16:23:09</td><td>删除</td>
-    			</tr>
-    			<tr>
-    				<td><input name="01" type="checkbox" value="" /></td><td>01</td><td>天眼传奇</td><td>娱乐</td><td>2016-04-23 16:23:09</td><td>删除</td>
-    			</tr>
-    			<tr>
-    				<td><input name="01" type="checkbox" value="" /></td><td>01</td><td>天眼传奇</td><td>娱乐</td><td>2016-04-23 16:23:09</td><td>删除</td>
-    			</tr>
-    			<tr>
-    				<td><input name="01" type="checkbox" value="" /></td><td>01</td><td>天眼传奇</td><td>娱乐</td><td>2016-04-23 16:23:09</td><td>删除</td>
-    			</tr>
+    			</c:forEach> 
     		</table>
 	    	<ul id="pagination-digg">
 		      <li class="previous-off">&laquo;首页</li>

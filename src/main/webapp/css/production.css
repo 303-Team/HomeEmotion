@@ -67,6 +67,7 @@ button{
 }
 #data_table{
 	width:1100px;
+	height:560px;
 	border-bottom:1px solid black;
 }
 table tr td{

@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -18,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <form action="${pageContext.request.contextPath}/fileUpload.do" method="post" enctype="multipart/form-data">
         <table align="center" cellspacing="5" cellpadding="5" id="upload_table">
         <tr>
-        	<td><span id="error_td"><%=request.getAttribute("massage") %></span></td>
+        	<td><span id="error_td">${requestScope.massage}</span></td>
         	<!-- ${ reqeustScope.massage } -->
         </tr>
         <tr>

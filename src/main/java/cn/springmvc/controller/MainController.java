@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.ModelAndView;
 
 import cn.springmvc.entity.Audio;
 import cn.springmvc.entity.Picture;
@@ -46,7 +48,7 @@ public class MainController {
 
 	@RequestMapping("index")
 	public String index() {
-		System.out.println(111);
+		// System.out.println(111);
 		return "index";
 	}
 
@@ -145,7 +147,6 @@ public class MainController {
 
 	}
 
-
 	@RequestMapping("person")
 	public String person(Model model, HttpSession httpSession) {
 		String username = (String) httpSession.getAttribute("username");
@@ -155,10 +156,19 @@ public class MainController {
 	}
 
 	@RequestMapping("production")
-	public String production(String productionType, HttpSession httpSession) {
+	public ModelAndView production(String productionType,
+			HttpSession httpSession) {
 		// System.out.println(productionType);
 		httpSession.setAttribute("flag", productionType);
-		return "production";
+		// 调用方法查询数据
+		List<Video> viList = videoService.selectByExample(null);
+		// System.out.println(viList);
+		// 返回ModelAndView
+		ModelAndView modelAndView = new ModelAndView();
+		// 相当 于request的setAttribut，在jsp页面中通过itemsList取数据
+		modelAndView.addObject("videoList", viList);
+		modelAndView.setViewName("production");
+		return modelAndView;
 	}
 
 	@RequestMapping("productionManager")
@@ -186,6 +196,54 @@ public class MainController {
 			flagUrl = "pictureUpload";
 		}
 		return flagUrl;
+	}
+
+	/**
+	 * 修改个人视频信息展示
+	 * 
+	 * @Title: updateVideo
+	 * @Description: TODO
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("updateVideo")
+	public ModelAndView updateVideo(String id, HttpServletRequest request) {
+		// applicationContext.setAttribute("videoId", videoId);
+		// System.out.println("id:" + id);
+		// System.out.println(request.getAttribute("id"));
+		Video video = videoService.selectByPrimaryKey(id);
+		ModelAndView modelAndView = new ModelAndView();
+		// System.out.println(video.getProName());
+		modelAndView.addObject("video", video);
+		modelAndView.setViewName("updateVideo");
+		return modelAndView;
+	}
+
+	@RequestMapping("updateVd")
+	public String updateVd(Video video, HttpServletRequest request,
+			HttpSession httpSession) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String proName = request.getParameter("pName");
+		String proType = request.getParameter("textType");
+		String videoId = request.getParameter("videoId");
+		String videoName = request.getParameter("videoName");
+		String userId = (String) httpSession.getAttribute("username");
+		video.setVideoId(videoId);
+		video.setProName(proName);
+		video.setProType(proType);
+		video.setVideoName(videoName);
+		video.setUserId(userId);
+		video.setUploadTime(df.format(new Date()));
+		System.out.println(video.getProName() + "***" + video.getProType());
+		videoService.updateByPrimaryKey(video);
+		return "index";
+	}
+
+	@RequestMapping("deleteVideo")
+	public String deleteVideo(String id) {
+		videoService.deleteByPrimaryKey(id);
+		return "index";
 	}
 
 	@RequestMapping("fileUpload")
