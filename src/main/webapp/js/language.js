@@ -22,8 +22,8 @@
 				mp3:"audio/WhitneyHouston.mp3"
 			}
 		];
-		ggg[0].title = dataList[0].auName;
-		ggg[0].mp3 = "audio/"+dataList[0].proName;
+		ggg[0].title = dataList[0].proName;
+		ggg[0].mp3 = "audio/"+dataList[0].auName;
 		new jPlayerPlaylist({
 			jPlayer: "#jquery_jplayer_1",
 			cssSelectorAncestor: "#jp_container_1"

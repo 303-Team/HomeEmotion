@@ -31,9 +31,9 @@ function writeConnent(result,workType) {
 	var htm = "";
 	if (workType == "0") {
 		for (var i = 0; i < result.data.length; i++) {
-			htm += "<div class='video_file_div'><a href='player.do?id="+result.data[i].id+"&src="+result.data[i].proName+
+			htm += "<div class='video_file_div'><a href='player.do?id="+result.data[i].id+"&src="+result.data[i].videoName+
 					"'><img src='images/video/"+result.data[i].picName+"' /></a><div class='video_detail_div'>" +
-							"<div class='video_title_div'>"+result.data[i].videoName+"</div><div class='video_author_div'>作者:<span>"
+							"<div class='video_title_div'>"+result.data[i].proName+"</div><div class='video_author_div'>作者:<span>"
 							+result.name[i]+"</span><span class='video_date_span'>" +
 				result.data[i].uploadTime.split(" ")[0]+"</span></div></div></div>";
 		}
@@ -42,16 +42,16 @@ function writeConnent(result,workType) {
 		for (var i = 0; i < result.data.length; i++) {
 			htm += "<div class='video_file_div'><a href='language.do?id="+result.data[i].auId+
 					"'><img src='images/audio/voice.jpg' /></a><div class='video_detail_div'>" +
-							"<div class='video_title_div'>"+result.data[i].auName+"</div><div class='video_author_div'>作者:<span>"
+							"<div class='video_title_div'>"+result.data[i].proName+"</div><div class='video_author_div'>作者:<span>"
 							+result.name[i]+"</span><span class='video_date_span'>" +
 				result.data[i].uploadTime.split(" ")[0]+"</span></div></div></div>";
 		}
 	}
 	if (workType == "2") {
 		for (var i = 0; i < result.data.length; i++) {
-			htm += "<div class='video_file_div'><a href='scenery.do?id="+result.data[i].picId+"&src="+result.data[i].proName+
-			"'><img src='images/scenery/"+result.data[i].proName+"' /></a><div class='video_detail_div'>" +
-							"<div class='video_title_div'>"+result.data[i].picName+"</div><div class='video_author_div'>作者:<span>"
+			htm += "<div class='video_file_div'><a href='scenery.do?id="+result.data[i].picId+"&src="+result.data[i].picName+
+			"'><img src='images/scenery/"+result.data[i].picName+"' /></a><div class='video_detail_div'>" +
+							"<div class='video_title_div'>"+result.data[i].proName+"</div><div class='video_author_div'>作者:<span>"
 							+result.name[i]+"</span><span class='video_date_span'>" +
 				result.data[i].uploadTime.split(" ")[0]+"</span></div></div></div>";
 		}
