@@ -19,38 +19,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<script src="js/comment.js"></script>
 
   </head>
   
   <body>
+ 	 <input type="hidden" id="pid" value=${param.pid}>
+ 	 <input type="hidden" id="type" value=${param.type}>
+ 	 <input type="hidden" id="refelt" value="">
     <div id="comment_div">
-		<ul id="comment_ul">
-			<li>
-				<div class="picture_div"><img src="images/scenery/1.jpg" /></div>
-				<div class="content_div"><span><a href="##">小谢:</a>很好很好很好很好很好很好很好!</span></div>
-				<div class="detail_div">时间:<span class="time_span">2016/02/08 00:00:00</span><span class="response_span"><a href="##">回复</a></span></div>
-			</li>
-			<li>
-				<div class="picture_div"><img src="images/scenery/2.jpg" /></div>
-				<div class="content_div"><span><a href="##">小谢:</a>很好很好很好很好很好很好很好!</span></div>
-				<div class="detail_div">时间:<span class="time_span">2016/02/08 00:00:00</span><span class="response_span"><a href="##">回复</a></span></div>
-			</li>
-			<li>
-				<div class="picture_div"><img src="images/scenery/3.jpg" /></div>
-				<div class="content_div"><span><a href="##">小谢:</a>很好很好很好很好很好很好很好!</span></div>
-				<div class="detail_div">时间:<span class="time_span">2016/02/08 00:00:00</span><span class="response_span"><a href="##">回复</a></span></div>
-			</li>
-			<li>
-				<div class="picture_div"><img src="images/scenery/4.jpg" /></div>
-				<div class="content_div"><span><a href="##">小谢:</a>很好很好很好很好很好很好很好!</span></div>
-				<div class="detail_div">时间:<span class="time_span">2016/02/08 00:00:00</span><span class="response_span"><a href="##">回复</a></span></div>
-			</li>
-			<li>
-				<div class="picture_div"><img src="images/scenery/5.jpg" /></div>
-				<div class="content_div"><span><a href="##">小谢:</a>很好很好很好很好很好很好很好!</span></div>
-				<div class="detail_div">时间:<span class="time_span">2016/02/08 00:00:00</span><span class="response_span"><a href="##">回复</a></span></div>
-			</li>
-		</ul>
+    	<div id="content">
+    	<table class="comment_table">
+    		<tr>
+    			<td  rowspan="2" class="picture_div"><div class="picture_div"><img src="images/scenery/1.jpg" /></div></td>
+    			<td><div class="content_div"><span><a href="##">小谢:</a>很好很好很好很好很好很好很好!</span></div></td></tr>
+    		<tr><td><div class="detail_div">时间:<span class="time_span">2016/02/08 00:00:00</span><span class="response_span"><a href="##">回复</a></span></div></td></tr>
+    		<tr><td colspan="2">
+    		</td></tr>
+    	</table>
+    	</div>
 		<ul id="pagination-digg">
 	      <li class="previous-off">&laquo;首页</li>
 	      <li class="active">1</li>
@@ -64,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		</ul>
 		<div id="submit_div">
 			<form>
-				<textarea autoHeight="true"></textarea>
+				<textarea autoHeight="true" id="myComment"></textarea>
 				<div id="commit_div"><input type="submit" value="评论" /></div>
 			</form>
 		</div>

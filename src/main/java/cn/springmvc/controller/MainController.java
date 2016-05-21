@@ -145,25 +145,6 @@ public class MainController {
 
 	}
 
-	@RequestMapping("home")
-	public String home() {
-		return "home";
-	}
-
-	@RequestMapping("player")
-	public String player() {
-		return "player";
-	}
-
-	@RequestMapping("language")
-	public String language() {
-		return "language";
-	}
-
-	@RequestMapping("scenery")
-	public String scenery() {
-		return "scenery";
-	}
 
 	@RequestMapping("person")
 	public String person(Model model, HttpSession httpSession) {

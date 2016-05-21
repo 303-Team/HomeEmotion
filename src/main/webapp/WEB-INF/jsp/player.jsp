@@ -23,6 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="js/jquery.min.js"></script>
 	<script src="js/strings.js"></script>
 	<script src="js/px-video.js"></script>
+	<script src="js/player.js"></script>
 	<style>
 		/*** for demo only ***/
 		#wrapper {
@@ -55,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="px-video-captions hide"></div>
 					<video width="1000" height="565" poster="media/poster_PayPal_Austin2.jpg" controls>
 						<!-- video files -->
-						<source src="video/echo-hereweare.mp4" type="video/mp4" />
+						<source src="video/${src }" type="video/mp4" />
 						
 						<source src="https://www.paypalobjects.com/webstatic/mktg/videos/PayPal_AustinSMB_baseline.webm" type="video/webm" />
 						
@@ -64,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 						<!-- fallback for browsers that don't support the video element -->
 						<div>
-							<a href="video/echo-hereweare.mp4">
+							<a href="video/${src }">
 								<img src="media/poster_PayPal_Austin2.jpg" width="640" height="360" alt="download video" />
 							</a>
 						</div>
@@ -74,8 +75,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div><!-- end video container -->
 			
 			</div><!-- end page wrapper container -->
-	<jsp:include page="comment.jsp" flush="true" />
-    <jsp:include page="footer.jsp" flush="true" />
+	<jsp:include page="comment.jsp" flush="true" >
+		<jsp:param value="${id }" name="pid"/>
+		<jsp:param value="0" name="type"/>
+	</jsp:include>
+    <jsp:include page="footer.jsp" flush="true"/>
+    <input type="hidden" id = "pid" value=${id }>
+    <input type="hidden" id="psrc" value=${ src }>
     <script>
 	// Initialize
 	new InitPxVideo({

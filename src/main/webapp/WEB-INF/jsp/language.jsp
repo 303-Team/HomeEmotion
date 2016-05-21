@@ -23,88 +23,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
 	<script type="text/javascript" src="js/jplayer.playlist.min.js"></script>
+	<script type="text/javascript" src="js/language.js"></script>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<script type="text/javascript">
-	//<![CDATA[
-	$(document).ready(function(){
-	
-		new jPlayerPlaylist({
-			jPlayer: "#jquery_jplayer_1",
-			cssSelectorAncestor: "#jp_container_1"
-		}, [
-			{
-				title:"Cro Magnon Man",
-				mp3:"http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3",
-				oga:"http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
-			},
-			{
-				title:"Tempered Song",
-				mp3:"http://www.jplayer.org/audio/mp3/Miaow-01-Tempered-song.mp3",
-				oga:"http://www.jplayer.org/audio/ogg/Miaow-01-Tempered-song.ogg"
-			},
-			{
-				title:"Bubble",
-				free:true,
-				mp3:"http://www.jplayer.org/audio/mp3/Miaow-07-Bubble.mp3",
-				oga:"http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
-			},
-			{
-				title:"Lismore",
-				mp3:"http://www.jplayer.org/audio/mp3/Miaow-04-Lismore.mp3",
-				oga:"http://www.jplayer.org/audio/ogg/Miaow-04-Lismore.ogg"
-			},
-			{
-				title:"The Separation",
-				mp3:"http://www.jplayer.org/audio/mp3/Miaow-05-The-separation.mp3",
-				oga:"http://www.jplayer.org/audio/ogg/Miaow-05-The-separation.ogg"
-			},
-			{
-				title:"Beside Me",
-				mp3:"http://www.jplayer.org/audio/mp3/Miaow-06-Beside-me.mp3",
-				oga:"http://www.jplayer.org/audio/ogg/Miaow-06-Beside-me.ogg"
-			},
-			{
-				title:"Cyber Sonnet",
-				mp3:"http://www.jplayer.org/audio/mp3/TSP-07-Cybersonnet.mp3",
-				oga:"http://www.jplayer.org/audio/ogg/TSP-07-Cybersonnet.ogg"
-			},
-			{
-				title:"Hidden",
-				mp3:"http://www.jplayer.org/audio/mp3/Miaow-02-Hidden.mp3",
-				oga:"http://www.jplayer.org/audio/ogg/Miaow-02-Hidden.ogg"
-			},
-			{
-				title:"Lentement",
-				free:true,
-				mp3:"http://www.jplayer.org/audio/mp3/Miaow-03-Lentement.mp3",
-				oga:"http://www.jplayer.org/audio/ogg/Miaow-03-Lentement.ogg"
-			},
-			{
-				title:"Thin Ice",
-				mp3:"http://www.jplayer.org/audio/mp3/Miaow-10-Thin-ice.mp3",
-				oga:"http://www.jplayer.org/audio/ogg/Miaow-10-Thin-ice.ogg"
-			}
-		], {
-			swfPath: "../../dist/jplayer",
-			supplied: "oga, mp3",
-			wmode: "window",
-			useStateClassSkin: true,
-			autoBlur: false,
-			smoothPlayBar: true,
-			keyEnabled: true
-		});
-	});
-	//]]>
-	</script>
   </head>
   
   <body>
   <jsp:include page="header.jsp" flush="true" />
   <div id="audio_div">
     <div id="jquery_jplayer_1" class="jp-jplayer"></div>
-			<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player">
+			<div id="jp_container_1" class="jp-audio" role="application" aria-label="media player" style="margin-top: 50px;">
 				<div class="jp-type-playlist">
 					<!-- 放前面 -->
 					<div class="jp-gui jp-interface">
@@ -142,10 +71,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 			</div>
-		<div id="translate_div"><p>译文</p></div>
+		<div id="translate_div"><p>译文</p>
+		<span id="trans" style="text-align: left;font-size: 20px;font-family:verdana "></span></div>
 		<div class="clear"></div>
   </div>
   <jsp:include page="comment.jsp" flush="true" />
   <jsp:include page="footer.jsp" flush="true" />
+  <input type="hidden" id="fid" value=${ id}>
   </body>
 </html>
