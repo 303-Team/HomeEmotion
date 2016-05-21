@@ -177,7 +177,7 @@ public class WorkServiceImpl implements WorkService{
 			VideoExample videoExample = new VideoExample();
 			VideoExample.Criteria criteria = videoExample.createCriteria(); 
 			if (name != null && !name.isEmpty()) {
-				criteria.andVideoNameLike("%"+name.trim()+"%");
+				criteria.andProNameLike("%"+name.trim()+"%");
 			}
 			if (pType != null && !pType.isEmpty()) {
 				criteria.andProTypeEqualTo(pType);
@@ -204,7 +204,7 @@ public class WorkServiceImpl implements WorkService{
 			AudioExample audioExample = new AudioExample();
 			AudioExample.Criteria criteria = audioExample.createCriteria();
 			if (name != null && !name.isEmpty()) {
-				criteria.andAuNameLike("%"+name+"%");
+				criteria.andProNameLike("%"+name+"%");
 			}
 			if (pType != null && !pType.isEmpty()) {
 				criteria.andAuTypeEqualTo(pType);
@@ -231,7 +231,7 @@ public class WorkServiceImpl implements WorkService{
 			PictureExample pictureExample = new PictureExample();
 			PictureExample.Criteria criteria = pictureExample.createCriteria();
 			if (name != null && !name.isEmpty()) {
-				criteria.andPicNameLike("%"+name+"%");
+				criteria.andProNameLike("%"+name+"%");
 			}
 			if (pType != null && !pType.isEmpty()) {
 				criteria.andPicTypeEqualTo(pType);
